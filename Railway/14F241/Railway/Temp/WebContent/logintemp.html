@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<script>
+function myFunc() {
+	var ele=document.getElementById("btn");
+	ele.addEventListener("click",function(){
+		var userName = document.getElementById("userId").value;
+		var password = document.getElementById("passId").value;
+		var xhr = new XMLHttpRequest();
+		xhr.open("post","Login");
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhr.send("userName="+userName+"&password="+password+"");
+		xhr.onreadystatechange = function() {
+		if(this.readyState == 4 && this.status == 200) {
+		var d = JSON.parse(this.responseText);
+		document.getElementById("message").innerHTML = d.message;
+		}
+		};
+	});
+}
+window.addEventListener("load",myFunc);
+</script>
+</head>
+<body>
+<table>
+<tr><td>UserName : </td><td><input type="text" id="userId"name="userName" placeholder="UserName" required></td></tr>
+<tr><td>Password : </td><td><input type="password" id="passId" name="password" placeholder="Password" required></td></tr>
+</table>
+<input type="Submit" id="btn" value="Login"/ >
+<p id="message"></p>
+</body>
+</html>
